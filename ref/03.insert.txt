@@ -1,0 +1,18 @@
+** Insert
+
+set hive.cli.print.header = true
+
+create table if not exists emp_tab(col1 int, col2 string, col3 string, col4 int, col5 int, col6 string, col7 string)row format delimited fields terminated by',' collection items terminated by':' lines terminated by'\n' stored as textfile;
+
+load data local inpath '/employee/employee.txt' into table emp_tab; <-- hive-server container 위치
+
+create table if not exists tab (col1 int, col2 string, col3 string) stored as textfile;
+
+insert into table tab select col1,col2,col3 from emp_tab;
+select * from tab;
+
+insert into table tab select col1,col2,col3 from emp_tab; <-- 계속 추가 됨
+select * from tab;
+
+insert overwrite table tab select col1,col2,col3 from emp_tab where col3 = 'Developer';
+select * from tab;

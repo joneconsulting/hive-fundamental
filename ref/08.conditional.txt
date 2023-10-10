@@ -1,0 +1,23 @@
+# conditional statements
+select * from table2;
+
+select if(col3='England', col1, col4) from table2;
+
+case fruit
+    when 'apple' then 'the owner is apple'
+    when 'orange' then 'the owner is orage'
+    else 'it is another fruit'
+end
+
+case when fruit='apple' then 'the owner is apple'
+    wher fruit='orange' then 'the owner is orage'
+    else 'it is another fruit'
+end
+
+select isnull(col1)  from table2; 
+
+select isnotnull(col1)  from table2; 
+
+select coalesce(datefield1, datefield2, datefield3) as first_date_found from tbldates;
+
+select supplier_id, nvl(supplier_desc, supplier_name) from suppliers;

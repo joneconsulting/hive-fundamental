@@ -1,0 +1,25 @@
+**RANKING
+
+create table if not exists table7(col1 string,col2 int) row format delimited fields terminated by',' lines terminated by'\n'stored as textfile;
+
+load data local inpath'/employee/rank.txt'overwrite into table table7;
+
+create table if not exists table6(col1 string,col2 int) row format delimited fields terminated by',' lines terminated by'\n'stored as textfile;
+
+load data local inpath'/employee/rankfunctions.txt'overwrite into table table6;
+
+
+
+select col1,col2,rank() over(order by col2 desc) as ranking from table6;
+
+select r1.col1,r1.col2,r1.ranking from (select col1,col2,rank() over(order by col2 desc) as ranking from table6) as r1 where r1.ranking<2;
+
+select col1,col2,dense_rank() over(order by col2 desc) as ranking from table6;
+
+select r1.col1,r1.col2,r1.ranking from (select col1,col2,dense_rank() over(order by col2 desc) as ranking from table6) as r1 where r1.ranking<2;
+
+select col1,col2,row_number() over(order by col2 desc) as ranking from table6;
+
+select r1.col1,r1.col2,r1.ranking from (select col1,col2,row_number() over(order by col2 desc) as ranking from table6) as r1 where r1.ranking<=2;
+
+select r1.col1,r1.col2,r1.ranking from (select col1,col2,row_number() over(partition by col1 order by col2 desc) as ranking from table6) as r1 where r1.ranking<=2;

@@ -1,0 +1,29 @@
+select * from tab;
+desc tab;
+
+alter table tab add columns(col4 string, col5 int);
+
+desc tab;
+select * from tab;
+
+alter table tab change column col1 col1 int after col3;
+desc tab;
+
+alter table tab change column col2 new_col2 string;
+desc tab;
+
+alter table tab rename to tab1;
+select * from tab1;
+
+alter table tab1 replace columns(id int, name string);
+select * from tab1;
+
+desc formatted tab1;
+
+alter table tab1 set tblproperties('auto.purge'='true'); 
+desc formatted tab1;
+
+alter table tab1 set fileformat avro;
+desc formatted tab1;
+
+

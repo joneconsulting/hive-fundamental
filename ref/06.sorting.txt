@@ -1,0 +1,16 @@
+create table if not exists table5(col1 string,col2  int)row format delimited fields terminated by',' collection items terminated by':' lines terminated by'\n' stored as textfile;
+
+load data local inpath '/employee/order.txt' into table table5;
+
+* order by 
+select * from table5;
+
+select col2 from table5 order by col2; <-- 시간 더 걸림
+
+select col2 from table5 order by col2 limit 5; <-- 시간 더 걸림 (NULL을 가지고 있음 -> order by 했을 때  null이 상단에 있기 때문에)
+
+* sort by (reducer 안에서 실행) <- gurantee 하지 않음(여러개의 MR로 실행 될 경우)
+select col2 from table5 sort by col2;
+
+* distribute by sort by (= cluster by)
+select col2 from table5 cluster by col2;

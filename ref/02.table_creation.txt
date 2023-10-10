@@ -1,0 +1,13 @@
+** TABLE CREATION
+
+create table if not exists table3(col1 int,col2 array<string>,col3 string,col4 int)row format delimited fields terminated by',' collection items terminated by':' lines terminated by'\n' stored as textfile;
+
+load data local inpath '/employee/table1.txt' into table table2; <-- hive-server container 위치
+
+** Internal vs External table
+
+set hive.metastore.warehouse.dir;
+
+create external table if not exists table2(col1 int,col2 array<string>,col3 string,col4 int)row format delimited fields terminated by',' collection items terminated by':' lines terminated by'\n' stored as textfile location'/user/dowon/emp'; <-- hdfs 위치
+
+load data local inpath '/employee/table1.txt' into table table2; <-- hive-server container 위치
