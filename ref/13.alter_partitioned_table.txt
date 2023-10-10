@@ -1,0 +1,19 @@
+show partitions part_dept1;
+
+* drop partition
+alter table part_dept1 drop partition (deptname = 'HR');
+
+* Add partition
+alter table part_dept1 add partition (deptname = 'Dev');
+
+load data local inpath'/employee/dev'into table part_dept1 partition( deptname ='Dev');
+
+(hadoop fs -ls /user/hive/warehouse/d2.db/part_dept1) 
+(hadoop fs -mkdir /user/hive/warehouse/d2.db/part_dept1/deptname=Finance)
+
+show partitions part_dept1 (--> 위에서 만든 Finance 디렉토리 없음)
+
+    solution1) alter table part_dept1 add partition (deptname='Finance');
+
+(hadoop fs -mkdir /user/hive/warehouse/d2.db/part_dept1/deptname=Finance)
+    solution2) msck repair table part_dept1; (msck -> metastore check)
