@@ -1,5 +1,0 @@
-select 'haddop' rlike 'ha';
-
-select 'hadoop' rlike 'ha*';
-
-select 'hadoop        ' rlike 'hadoop';
